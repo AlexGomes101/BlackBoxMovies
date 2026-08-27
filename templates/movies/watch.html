@@ -1,0 +1,292 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+
+{% block title %}Watch {{ movie.title }} — BlackBox Movies{% endblock %}
+
+{% block content %}
+<div class="watch-page">
+
+  {% if movie.video_file %}
+  <div class="player-outer" id="playerOuter">
+    <video id="moviePlayer" playsinline preload="metadata">
+      <source src="{% url 'stream_video' movie.slug %}" type="video/mp4">
+    </video>
+
+    <div class="seek-indicator left" id="seekLeft">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.99 5V1l-5 5 5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6h-2c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+      <span>-10s</span>
+    </div>
+    <div class="seek-indicator right" id="seekRight">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.01 5V1l5 5-5 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z"/></svg>
+      <span>+10s</span>
+    </div>
+
+    <div class="player-controls" id="playerControls">
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-buffered" id="progressBuffered"></div>
+        <div class="progress-played"   id="progressPlayed"></div>
+        <input type="range" class="progress-range" id="progressRange" value="0" min="0" step="0.1">
+      </div>
+      <div class="controls-row">
+        <div class="ctrl-left">
+          <button class="ctrl-btn" id="btnPlay" title="Play/Pause (Space)">
+            <svg class="ic-play"  viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+            <svg class="ic-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          </button>
+          <button class="ctrl-btn" id="btnRewind" title="Rewind 10s (←)">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
+              <text x="8.5" y="15" font-size="5.5" font-family="sans-serif" font-weight="bold" fill="white" text-anchor="middle">10</text>
+            </svg>
+          </button>
+          <button class="ctrl-btn" id="btnForward" title="Forward 10s (→)">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 5v-4l5 5-5 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z"/>
+              <text x="15.5" y="15" font-size="5.5" font-family="sans-serif" font-weight="bold" fill="white" text-anchor="middle">10</text>
+            </svg>
+          </button>
+          <button class="ctrl-btn" id="btnMute" title="Mute (M)">
+            <svg class="ic-vol"  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+            <svg class="ic-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          </button>
+          <input type="range" class="volume-range" id="volumeRange" min="0" max="1" step="0.05" value="1">
+          <span class="time-display" id="timeDisplay">0:00 / 0:00</span>
+        </div>
+        <div class="ctrl-right">
+          <button class="ctrl-btn speed-btn" id="btnSpeed">1×</button>
+          <button class="ctrl-btn" id="btnPip" title="Picture-in-Picture">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><rect x="13" y="10" width="8" height="6" rx="1" fill="currentColor" stroke="none"/></svg>
+          </button>
+          <button class="ctrl-btn" id="btnFullscreen" title="Fullscreen (F)">
+            <svg class="ic-expand"   viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+            <svg class="ic-compress" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="10" y1="14" x2="3" y2="21"/><line x1="21" y1="3" x2="14" y2="10"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% elif movie.trailer_url %}
+  <div class="player-wrap">
+    <iframe src="{{ movie.trailer_url }}?autoplay=1" allowfullscreen allow="autoplay"></iframe>
+  </div>
+  {% else %}
+  <div class="player-wrap">
+    <div class="no-video">
+      <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><polygon points="5,3 19,12 5,21"/></svg>
+      <p>Video not available yet.</p>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="watch-info container">
+    <div class="watch-meta">
+      <div class="watch-text">
+        <div class="detail-badge">{{ movie.genre_name }}</div>
+        <h1>{{ movie.title }}</h1>
+        <div class="detail-meta">
+          <span class="star-rating">★ {{ movie.rating }}</span>
+          <span>{{ movie.release_year }}</span>
+          <span>{{ movie.duration_display }}</span>
+        </div>
+        <p>{{ movie.description }}</p>
+      </div>
+      <div class="watch-actions">
+        <a href="{% url 'movie_detail' movie.slug %}" class="btn-info">Details</a>
+        {% if user.is_authenticated %}
+        <button class="btn-watchlist" id="wlBtn" data-slug="{{ movie.slug }}">+ Watchlist</button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{% if movie.video_file %}
+
+
+<script>
+const video     = document.getElementById('moviePlayer');
+const outer     = document.getElementById('playerOuter');
+const controls  = document.getElementById('playerControls');
+const btnPlay   = document.getElementById('btnPlay');
+const btnRewind = document.getElementById('btnRewind');
+const btnFwd    = document.getElementById('btnForward');
+const btnMute   = document.getElementById('btnMute');
+const btnFull   = document.getElementById('btnFullscreen');
+const btnSpeed  = document.getElementById('btnSpeed');
+const btnPip    = document.getElementById('btnPip');
+const pRange    = document.getElementById('progressRange');
+const pPlayed   = document.getElementById('progressPlayed');
+const pBuffered = document.getElementById('progressBuffered');
+const volRange  = document.getElementById('volumeRange');
+const timeDisp  = document.getElementById('timeDisplay');
+const seekLeft  = document.getElementById('seekLeft');
+const seekRight = document.getElementById('seekRight');
+
+const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2];
+let speedIdx = 2, hideTimer, seeking = false;
+
+// ── Format seconds → m:ss ──
+function fmt(s) {
+  if (!s || isNaN(s) || !isFinite(s)) return '0:00';
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = Math.floor(s % 60);
+  return h > 0
+    ? `${h}:${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')}`
+    : `${m}:${String(sec).padStart(2,'0')}`;
+}
+
+function showIndicator(el) {
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 700);
+}
+function showControls() {
+  controls.classList.add('visible');
+  clearTimeout(hideTimer);
+  hideTimer = setTimeout(() => {
+    if (!video.paused) controls.classList.remove('visible');
+  }, 3000);
+}
+function togglePlay() {
+  if (video.paused) video.play(); else video.pause();
+}
+
+// ── SEEK — works only after duration is valid ──
+function seekBy(sec) {
+  const d = video.duration;
+  if (!d || isNaN(d) || !isFinite(d)) {
+    console.warn('Video not ready for seeking yet.');
+    return;
+  }
+  video.currentTime = Math.max(0, Math.min(d, video.currentTime + sec));
+  showIndicator(sec < 0 ? seekLeft : seekRight);
+  showControls();
+}
+
+// ── Play/Pause ──
+btnPlay.addEventListener('click', (e) => { e.stopPropagation(); togglePlay(); });
+video.addEventListener('play', () => {
+  btnPlay.querySelector('.ic-play').style.display  = 'none';
+  btnPlay.querySelector('.ic-pause').style.display = '';
+  showControls();
+});
+video.addEventListener('pause', () => {
+  btnPlay.querySelector('.ic-play').style.display  = '';
+  btnPlay.querySelector('.ic-pause').style.display = 'none';
+  controls.classList.add('visible');
+});
+
+// ── Rewind / Forward ──
+btnRewind.addEventListener('click', (e) => { e.stopPropagation(); seekBy(-10); });
+btnFwd.addEventListener('click',    (e) => { e.stopPropagation(); seekBy(+10); });
+
+// ── Log when metadata loads so you can debug ──
+video.addEventListener('loadedmetadata', () => {
+  console.log('Duration loaded:', video.duration);
+  timeDisp.textContent = `0:00 / ${fmt(video.duration)}`;
+});
+
+// ── Progress ──
+video.addEventListener('timeupdate', () => {
+  if (seeking) return;
+  const d = video.duration;
+  if (!d || isNaN(d) || !isFinite(d)) return;
+  const pct = (video.currentTime / d) * 100;
+  pRange.value = pct;
+  pPlayed.style.width = pct + '%';
+  timeDisp.textContent = `${fmt(video.currentTime)} / ${fmt(d)}`;
+});
+video.addEventListener('progress', () => {
+  const d = video.duration;
+  if (video.buffered.length && d && isFinite(d)) {
+    pBuffered.style.width = (video.buffered.end(video.buffered.length-1) / d * 100) + '%';
+  }
+});
+pRange.addEventListener('mousedown', () => seeking = true);
+pRange.addEventListener('input', () => {
+  const d = video.duration;
+  if (!d || !isFinite(d)) return;
+  const t = (pRange.value / 100) * d;
+  pPlayed.style.width = pRange.value + '%';
+  timeDisp.textContent = `${fmt(t)} / ${fmt(d)}`;
+});
+pRange.addEventListener('change', () => {
+  const d = video.duration;
+  if (d && isFinite(d)) video.currentTime = (pRange.value / 100) * d;
+  seeking = false;
+});
+
+// ── Volume ──
+volRange.addEventListener('input', () => {
+  video.volume = volRange.value;
+  video.muted = (volRange.value == 0);
+  updateMuteIcon();
+});
+btnMute.addEventListener('click', () => {
+  video.muted = !video.muted;
+  if (!video.muted) volRange.value = video.volume || 0.5;
+  updateMuteIcon();
+});
+function updateMuteIcon() {
+  const m = video.muted || video.volume === 0;
+  btnMute.querySelector('.ic-vol').style.display  = m ? 'none' : '';
+  btnMute.querySelector('.ic-mute').style.display = m ? '' : 'none';
+}
+
+// ── Speed ──
+btnSpeed.addEventListener('click', () => {
+  speedIdx = (speedIdx + 1) % SPEEDS.length;
+  video.playbackRate = SPEEDS[speedIdx];
+  btnSpeed.textContent = SPEEDS[speedIdx] + '×';
+});
+
+// ── PiP ──
+if (document.pictureInPictureEnabled) {
+  btnPip.addEventListener('click', () => {
+    document.pictureInPictureElement
+      ? document.exitPictureInPicture()
+      : video.requestPictureInPicture();
+  });
+} else { btnPip.style.display = 'none'; }
+
+// ── Fullscreen ──
+btnFull.addEventListener('click', () => {
+  document.fullscreenElement ? document.exitFullscreen() : outer.requestFullscreen();
+});
+document.addEventListener('fullscreenchange', () => {
+  const fs = !!document.fullscreenElement;
+  btnFull.querySelector('.ic-expand').style.display   = fs ? 'none' : '';
+  btnFull.querySelector('.ic-compress').style.display = fs ? '' : 'none';
+});
+
+// ── Keyboard ──
+document.addEventListener('keydown', e => {
+  if (['INPUT','TEXTAREA'].includes(document.activeElement.tagName)) return;
+  switch(e.key) {
+    case ' ': case 'k': e.preventDefault(); togglePlay(); showControls(); break;
+    case 'ArrowLeft':  e.preventDefault(); seekBy(-10); break;
+    case 'ArrowRight': e.preventDefault(); seekBy(+10); break;
+    case 'ArrowUp':    e.preventDefault(); video.volume = Math.min(1, video.volume+0.1); volRange.value = video.volume; updateMuteIcon(); break;
+    case 'ArrowDown':  e.preventDefault(); video.volume = Math.max(0, video.volume-0.1); volRange.value = video.volume; updateMuteIcon(); break;
+    case 'm': case 'M': btnMute.click(); break;
+    case 'f': case 'F': btnFull.click(); break;
+  }
+});
+
+// ── Mouse ──
+outer.addEventListener('mousemove',  showControls);
+outer.addEventListener('mouseenter', showControls);
+outer.addEventListener('mouseleave', () => { if (!video.paused) controls.classList.remove('visible'); });
+outer.addEventListener('dblclick', e => {
+  seekBy(e.offsetX < outer.getBoundingClientRect().width / 2 ? -10 : +10);
+});
+video.addEventListener('click', () => { togglePlay(); showControls(); });
+controls.classList.add('visible');
+</script>
+{% endif %}
+
+{% block extra_extra_js %}{% endblock %}
+{% endblock %}

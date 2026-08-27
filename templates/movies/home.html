@@ -1,0 +1,87 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+
+{% block title %}BlackBox Movies — Stream Premium Cinema{% endblock %}
+
+{% block content %}
+
+{% if featured %}
+<section class="hero" style="--bg: url('{{ featured.banner.url|default:featured.poster.url }}')">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">{{ featured.genre_name }}</div>
+    <h1 class="hero-title">{{ featured.title }}</h1>
+    <div class="hero-meta">
+      <span class="star-rating">★ {{ featured.rating }}</span>
+      <span>{{ featured.release_year }}</span>
+      <span>{{ featured.duration_display }}</span>
+    </div>
+    <p class="hero-desc">{{ featured.description|truncatewords:30 }}</p>
+    <div class="hero-actions">
+      <a href="{% url 'watch_movie' featured.slug %}" class="btn-play">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+        Watch Now
+      </a>
+      <a href="{% url 'movie_detail' featured.slug %}" class="btn-info">More Info</a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if trending %}
+<section class="movie-section">
+  <div class="section-header">
+    <h2><span class="accent">●</span> Trending Now</h2>
+    <div class="slider-controls">
+      <button class="slider-btn" data-target="trending-row" data-dir="-1">‹</button>
+      <button class="slider-btn" data-target="trending-row" data-dir="1">›</button>
+    </div>
+  </div>
+  <div class="movie-row" id="trending-row">
+    {% for movie in trending %}{% include 'movies/card.html' %}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if latest %}
+<section class="movie-section">
+  <div class="section-header">
+    <h2><span class="accent">●</span> Latest Uploads</h2>
+    <div class="slider-controls">
+      <button class="slider-btn" data-target="latest-row" data-dir="-1">‹</button>
+      <button class="slider-btn" data-target="latest-row" data-dir="1">›</button>
+    </div>
+  </div>
+  <div class="movie-row" id="latest-row">
+    {% for movie in latest %}{% include 'movies/card.html' %}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if top_rated %}
+<section class="movie-section">
+  <div class="section-header">
+    <h2><span class="accent">●</span> Top Rated</h2>
+    <div class="slider-controls">
+      <button class="slider-btn" data-target="toprated-row" data-dir="-1">‹</button>
+      <button class="slider-btn" data-target="toprated-row" data-dir="1">›</button>
+    </div>
+  </div>
+  <div class="movie-row" id="toprated-row">
+    {% for movie in top_rated %}{% include 'movies/card.html' %}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="genre-grid-section">
+  <div class="section-header"><h2><span class="accent">●</span> Browse by Genre</h2></div>
+  <div class="genre-grid">
+    {% for genre in genres %}
+    <a href="{% url 'genre' genre.slug %}" class="genre-tile genre-{{ genre.slug }}">
+      <span>{{ genre.name }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'movies/base.html' %}
+{% block title %}Profile — BlackBox{% endblock %}
+{% block content %}
+<div class="profile-page container">
+
+  <div class="profile-header">
+    <!-- Photo -->
+    <div class="profile-photo-wrap">
+      {% if profile.photo %}
+        <img src="{{ profile.photo.url }}" alt="Profile" class="profile-photo-img">
+      {% else %}
+        <div class="profile-avatar">{{ user.username|first|upper }}</div>
+      {% endif %}
+      <!-- Upload button -->
+      <form method="post" enctype="multipart/form-data" class="photo-upload-form">
+        {% csrf_token %}
+        <label for="photoInput" class="photo-upload-btn" title="Change photo">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        </label>
+        <input type="file" id="photoInput" name="photo" accept="image/*" style="display:none" onchange="this.form.submit()">
+      </form>
+    </div>
+
+    <div class="profile-info">
+      <h2>{{ user.username }}</h2>
+      <p>Member since {{ user.date_joined|date:"M Y" }}</p>
+      {% if profile.bio %}
+        <p class="profile-bio">{{ profile.bio }}</p>
+      {% endif %}
+
+      <!-- Bio edit -->
+      <form method="post" class="bio-form">
+        {% csrf_token %}
+        <textarea name="bio" placeholder="Write something about yourself…" rows="2">{{ profile.bio }}</textarea>
+        <button type="submit" class="btn-submit" style="margin-top:8px;padding:7px 18px;font-size:0.8rem">Save Bio</button>
+      </form>
+    </div>
+
+    <div class="profile-stats">
+      <div class="stat-item">
+        <span class="stat-num">{{ history|length }}</span>
+        <span class="stat-label">Watched</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">{{ watchlist|length }}</span>
+        <span class="stat-label">Watchlist</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="section-title">Continue Watching</h3>
+  <div class="movies-grid">
+    {% for item in history %}{% with movie=item.movie %}{% include 'movies/card.html' %}{% endwith %}{% empty %}
+    <p class="muted">No watch history yet.</p>
+    {% endfor %}
+  </div>
+
+  <h3 class="section-title" style="margin-top:3rem">My Watchlist</h3>
+  <div class="movies-grid">
+    {% for item in watchlist %}{% with movie=item.movie %}{% include 'movies/card.html' %}{% endwith %}{% empty %}
+    <p class="muted">Nothing in your watchlist.</p>
+    {% endfor %}
+  </div>
+
+</div>
+{% endblock %}

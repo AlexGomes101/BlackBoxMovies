@@ -1,0 +1,18 @@
+{% extends 'movies/base.html' %}
+{% block title %}Search: {{ query }} — BlackBox{% endblock %}
+{% block content %}
+<div class="search-page container">
+  <div class="search-header">
+    <h1>{% if query %}Results for <span class="accent">"{{ query }}"</span>{% else %}Search Movies{% endif %}</h1>
+    <form class="search-bar-big" method="get" action="{% url 'search' %}">
+      <input type="text" name="q" value="{{ query }}" placeholder="Search by title or genre…" autofocus>
+      <button type="submit">Search</button>
+    </form>
+  </div>
+  <div class="movies-grid">
+    {% for movie in movies %}{% include 'movies/card.html' %}{% empty %}
+    {% if query %}<div class="empty-state"><p>No results for "{{ query }}"</p></div>{% endif %}
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

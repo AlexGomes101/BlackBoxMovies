@@ -1,0 +1,33 @@
+<div class="movie-card" data-slug="{{ movie.slug }}">
+  <div class="card-poster">
+    {% if movie.poster %}
+    <img src="{{ movie.poster.url }}" alt="{{ movie.title }}" loading="lazy">
+    {% else %}
+    <div class="poster-placeholder">{{ movie.title|first }}</div>
+    {% endif %}
+    <div class="card-overlay">
+      <a href="{% url 'watch_movie' movie.slug %}" class="card-play">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+      </a>
+      <div class="card-actions">
+        <a href="{% url 'movie_detail' movie.slug %}" class="card-action-btn" title="Details">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </a>
+        {% if user.is_authenticated %}
+        <button class="card-action-btn watchlist-btn" data-slug="{{ movie.slug }}" title="Add to Watchlist">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+        </button>
+        {% endif %}
+      </div>
+    </div>
+    <div class="card-badge">{{ movie.genre_name }}</div>
+  </div>
+  <div class="card-info">
+    <h3 class="card-title">{{ movie.title }}</h3>
+    <div class="card-meta">
+      <span class="card-rating">★ {{ movie.rating }}</span>
+      <span>{{ movie.release_year }}</span>
+      <span>{{ movie.duration_display }}</span>
+    </div>
+  </div>
+</div>

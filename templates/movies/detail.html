@@ -1,0 +1,124 @@
+{% extends 'movies/base.html' %}
+{% load static %}
+
+{% block title %}{{ movie.title }} — BlackBox Movies{% endblock %}
+
+{% block content %}
+<div class="detail-hero" style="--bg: url('{% if movie.banner %}{{ movie.banner.url }}{% else %}{{ movie.poster.url }}{% endif %}')">
+  <div class="detail-overlay"></div>
+  <div class="detail-inner">
+    <div class="detail-poster">
+      {% if movie.poster %}<img src="{{ movie.poster.url }}" alt="{{ movie.title }}">{% endif %}
+    </div>
+    <div class="detail-info">
+      <div class="detail-badge">{{ movie.genre_name }}</div>
+      <h1>{{ movie.title }}</h1>
+      <div class="detail-meta">
+        <span class="star-rating">★ {{ movie.rating }}</span>
+        <span>{{ movie.release_year }}</span>
+        <span>{{ movie.duration_display }}</span>
+        <span>{{ movie.views }} views</span>
+      </div>
+      <p class="detail-desc">{{ movie.description }}</p>
+      <div class="detail-actions">
+        <a href="{% url 'watch_movie' movie.slug %}" class="btn-play">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          Watch Now
+        </a>
+        {% if user.is_authenticated %}
+        <button class="btn-watchlist {% if in_watchlist %}active{% endif %}" id="wlBtn" data-slug="{{ movie.slug }}">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="{% if in_watchlist %}currentColor{% else %}none{% endif %}" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          {% if in_watchlist %}In Watchlist{% else %}Add to Watchlist{% endif %}
+        </button>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if movie.trailer_url %}
+<section class="trailer-section">
+  <div class="container">
+    <h2 class="section-title">Official Trailer</h2>
+    <div class="trailer-wrap">
+      <iframe src="{{ movie.trailer_url }}" allowfullscreen title="{{ movie.title }} trailer"></iframe>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if similar %}
+<section class="movie-section container">
+  <div class="section-header">
+    <h2><span class="accent">●</span> More Like This</h2>
+  </div>
+  <div class="movie-row">
+    {% for m in similar %}{% with movie=m %}{% include 'movies/card.html' %}{% endwith %}{% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="reviews-section container">
+  <h2 class="section-title">Reviews</h2>
+
+  {% if user.is_authenticated %}
+  <form class="review-form" method="post">
+    {% csrf_token %}
+    <h3>{% if user_review %}Edit Your Review{% else %}Write a Review{% endif %}</h3>
+    <div class="star-select">
+      {% for i in "54321" %}
+      <input type="radio" name="rating" id="star{{ i }}" value="{{ i }}" {% if user_review and user_review.rating == i|add:"0" %}checked{% endif %}>
+      <label for="star{{ i }}">★</label>
+      {% endfor %}
+    </div>
+    <textarea name="comment" placeholder="Share your thoughts…" rows="3">{% if user_review %}{{ user_review.comment }}{% endif %}</textarea>
+    <button type="submit" class="btn-submit">Submit Review</button>
+  </form>
+  {% else %}
+  <p class="login-prompt"><a href="{% url 'login' %}">Sign in</a> to leave a review.</p>
+  {% endif %}
+
+  <div class="reviews-list">
+    {% for review in reviews %}
+    <div class="review-card">
+      <div class="review-header">
+        <div class="reviewer-avatar">{{ review.user.username|first|upper }}</div>
+        <div>
+          <span class="reviewer-name">{{ review.user.username }}</span>
+          <span class="review-stars">{% for i in "12345" %}{% if forloop.counter <= review.rating %}★{% else %}☆{% endif %}{% endfor %}</span>
+        </div>
+        <span class="review-date">{{ review.created_at|date:"M d, Y" }}</span>
+      </div>
+      <p>{{ review.comment }}</p>
+    </div>
+    {% empty %}
+    <p class="no-reviews">No reviews yet. Be the first!</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const wlBtn = document.getElementById('wlBtn');
+if (wlBtn) {
+  wlBtn.addEventListener('click', () => {
+    fetch(`/watchlist/toggle/{{ movie.slug }}/`, {
+      headers: {'X-CSRFToken': '{{ csrf_token }}'}
+    })
+    .then(r => r.json())
+    .then(d => {
+      if (d.status === 'added') {
+        wlBtn.classList.add('active');
+        wlBtn.querySelector('svg').setAttribute('fill', 'currentColor');
+        wlBtn.childNodes[2].textContent = ' In Watchlist';
+      } else {
+        wlBtn.classList.remove('active');
+        wlBtn.querySelector('svg').setAttribute('fill', 'none');
+        wlBtn.childNodes[2].textContent = ' Add to Watchlist';
+      }
+    });
+  });
+}
+</script>
+{% endblock %}

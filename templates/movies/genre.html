@@ -1,0 +1,20 @@
+{% extends 'movies/base.html' %}
+{% block title %}{{ genre_name }} Movies — BlackBox{% endblock %}
+{% block content %}
+<div class="genre-page container">
+  <div class="genre-header">
+    <h1><span class="accent">{{ genre_name }}</span></h1>
+    <p>{{ movies.count }} movie{{ movies.count|pluralize }}</p>
+  </div>
+  <div class="genre-filters">
+    {% for g in genres %}
+    <a href="{% url 'genre' g.slug %}" class="filter-tag {% if g.slug == genre %}active{% endif %}">{{ g.name }}</a>
+    {% endfor %}
+  </div>
+  <div class="movies-grid">
+    {% for movie in movies %}{% include 'movies/card.html' %}{% empty %}
+    <div class="empty-state"><p>No movies in this genre yet.</p></div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

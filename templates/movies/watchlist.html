@@ -1,0 +1,14 @@
+{% extends 'movies/base.html' %}
+{% block title %}My Watchlist — BlackBox{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="section-header" style="margin-top:6rem">
+    <h2><span class="accent">●</span> My Watchlist</h2>
+  </div>
+  <div class="movies-grid">
+    {% for item in watchlist %}{% with movie=item.movie %}{% include 'movies/card.html' %}{% endwith %}{% empty %}
+    <div class="empty-state"><p>Your watchlist is empty. Start adding movies!</p></div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

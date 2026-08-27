@@ -1,0 +1,35 @@
+{% extends 'movies/base.html' %}
+{% block title %}Sign In — BlackBox Movies{% endblock %}
+{% block content %}
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-logo"><span class="logo-box">B</span></div>
+    <h2>Welcome Back</h2>
+    <p class="auth-sub">Sign in to continue watching</p>
+    <form method="post" class="auth-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Your username" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Your password" required>
+      </div>
+      {% if form.errors %}
+      <div class="form-error">Invalid username or password.</div>
+      {% endif %}
+      <button type="submit" class="btn-play full-btn">Sign In</button>
+    </form>
+    <p class="auth-switch">New to BlackBox? <a href="{% url 'register' %}">Create account</a></p>
+
+<div class="admin-login-link">
+  <a href="/admin/" class="admin-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    Admin Panel
+  </a>
+</div>
+
+  </div>
+</div>
+{% endblock %}
