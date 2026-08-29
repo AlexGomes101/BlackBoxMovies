@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # BlackBox Movies — Complete Setup Guide
 
 ## Project Folder Structure
@@ -225,8 +224,8 @@ python manage.py migrate
 4. Add `pip install -r requirements.txt` as build command
 
 
-Author- Alex Augustine Gomes
+Author- Alex Gomes
 =======
 # BlackBoxMovies
 A Django-based movie management system featuring a structured admin dashboard for adding, editing, and organizing movie records. Built with Python and Django, using Whitenoise for static file handling and Gunicorn for production deployment.
->>>>>>> 7be1a46c7e66080afe0ab9ceb4ffd3a8658c834e
+
