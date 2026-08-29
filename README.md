@@ -225,7 +225,7 @@ python manage.py migrate
 4. Add `pip install -r requirements.txt` as build command
 
 
-Author- Alex Gomes
+Author- Alex Augustine Gomes
 =======
 # BlackBoxMovies
 A Django-based movie management system featuring a structured admin dashboard for adding, editing, and organizing movie records. Built with Python and Django, using Whitenoise for static file handling and Gunicorn for production deployment.
