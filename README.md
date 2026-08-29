@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # BlackBox Movies — Complete Setup Guide
 
 ## Project Folder Structure
