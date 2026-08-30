@@ -1,10 +1,9 @@
-<<<<<<< HEAD
 # 🎬 BlackBox Movies
 
 A full-featured Django movie streaming/catalog web application — browse, search, and watch movies by genre, maintain a personal watchlist, leave reviews, and manage everything through a custom admin dashboard.
 =======
 # BlackBox Movies — Complete Setup Guide
->>>>>>> 0d020fd20ebf7aa8f0da63a02bce7b9cde8f6141
+
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![Django](https://img.shields.io/badge/Django-4.2-green)
