@@ -253,26 +253,4 @@ This project currently has no license specified. Consider adding one (e.g. MIT) 
 
 ## Author
 
-<<<<<<< HEAD
-**Alex Augustine Gomes**
-=======
-### Railway (free tier):
-1. Go to railway.app
-2. Connect your GitHub repo
-3. Set environment variables:
-   - `SECRET_KEY` = your secret key
-   - `DEBUG` = False
-4. Railway auto-detects Django and deploys
-
-### Render (free tier):
-1. Push code to GitHub
-2. Go to render.com → New Web Service
-3. Add `gunicorn blackbox.wsgi` as start command
-4. Add `pip install -r requirements.txt` as build command
-
-
-Author- Alex Augustine Gomes
-=======
-# BlackBoxMovies
-A Django-based movie management system featuring a structured admin dashboard for adding, editing, and organizing movie records. Built with Python and Django, using Whitenoise for static file handling and Gunicorn for production deployment.
->>>>>>> 0d020fd20ebf7aa8f0da63a02bce7b9cde8f6141
+Author- Alex Gomes
