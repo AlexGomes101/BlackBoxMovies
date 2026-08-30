@@ -55,7 +55,7 @@ A full-featured Django movie streaming/catalog web application — browse, searc
 > Add your own screenshots below. Create a `screenshots/` folder in your project root, save your images there, and make sure the filenames match (or update the paths to match your actual filenames).
 
 ### 🏠 Homepage
-![Homepage](screenshots\home-dark.png)
+![Homepage](screenshots/home-dark.png)
 
 ### 🎬 Movie Detail Page
 ![Movie Detail](screenshots/home2.png)
@@ -65,6 +65,18 @@ A full-featured Django movie streaming/catalog web application — browse, searc
 
 ### 🛠️ Admin Dashboard
 ![Admin Dashboard](screenshots/admin-dashboard.png)
+
+### 📌 Watchlist
+![Watchlist](screenshots/watch-history.png)
+
+### 📌 Genre
+![Genre](screenshots/add-genre.png)
+
+### 📌 Watchlist
+![Watchlist](screenshots/watch-history.png)
+
+### 📌 Watchlist
+![Watchlist](screenshots/watch-history.png)
 
 ### 📌 Watchlist
 ![Watchlist](screenshots/watch-history.png)
