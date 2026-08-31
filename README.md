@@ -60,8 +60,23 @@ A full-featured Django movie streaming/catalog web application — browse, searc
 ### 🎬 Movie Detail Page
 ![Movie Detail](screenshots/home2.png)
 
+### 🎬 Sign-Up Page
+![Sign-Up Page](screenshots/sign-up.png)
+
+### 🎬 Sign-In page
+![Sign-In Page](screenshots/sign-in.png)
+
+### 🎬 Dark-Profile page
+![Dark-Profile Page](screenshots/profile.png)
+
+### 🎬 Light-Profile page
+![Light-Profile Page](screenshots/profile-lightmode.png)
+
 ### ▶️ Watch Page
 ![Watch Page](screenshots/movie-play.png)
+
+### ▶️ Footer Page
+![Footer Page](screenshots/footer.png)
 
 ### 🛠️ Admin Dashboard
 ![Admin Dashboard](screenshots/admin-dashboard.png)
@@ -72,14 +87,12 @@ A full-featured Django movie streaming/catalog web application — browse, searc
 ### 📌 Genre
 ![Genre](screenshots/add-genre.png)
 
-### 📌 Watchlist
-![Watchlist](screenshots/watch-history.png)
+### 📌 Add Movie
+![Add Movie](screenshots/add-movie.png)
 
 ### 📌 Watchlist
 ![Watchlist](screenshots/watch-history.png)
 
-### 📌 Watchlist
-![Watchlist](screenshots/watch-history.png)
 
 <!--
 HOW TO ADD SCREENSHOTS:
