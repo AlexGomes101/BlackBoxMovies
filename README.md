@@ -81,9 +81,6 @@ A full-featured Django movie streaming/catalog web application — browse, searc
 ### 🛠️ Admin Dashboard
 ![Admin Dashboard](screenshots/admin-dashboard.png)
 
-### 📌 Watchlist
-![Watchlist](screenshots/watch-history.png)
-
 ### 📌 Genre
 ![Genre](screenshots/add-genre.png)
 

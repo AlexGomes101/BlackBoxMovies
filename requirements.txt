@@ -5,3 +5,5 @@ sqlparse==0.5.5
 tzdata==2026.2
 gunicorn
 whitenoise
+dj-database-url
+psycopg2-binary
