@@ -17,10 +17,10 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'cloudinary_storage',
+    'django.contrib.staticfiles',
     'cloudinary',
-    'movies',  # our app
+    'movies',
 ]
 
 MIDDLEWARE = [
