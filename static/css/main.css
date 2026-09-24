@@ -1383,6 +1383,19 @@ body {
   margin-bottom: 16px;
 }
 
+/* .creator-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: var(--glass);
+  border: 0.5px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+} */
+
 .creator-card {
   display: flex;
   align-items: center;
@@ -1394,13 +1407,21 @@ body {
   border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
+
 .creator-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
   background: linear-gradient(90deg, var(--red), var(--orange));
+}
+
+.creator-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--red);
+  box-shadow: 0 12px 32px rgba(230,57,70,0.25);
 }
 
 .creator-photo-wrap {
