@@ -1528,16 +1528,16 @@ body {
 [data-theme="light"] .creator-link:hover {
   background: var(--red);
   border-color: var(--red);
-  color: #fff;
+  color: #000;
 }
 [data-theme="light"] .creator-link:hover svg {
-  color: #fff;
+  color: #000;
 }
 
 [data-theme="light"] .creator-link:hover {
   background: var(--red);
   border-color: var(--red);
-  color: #fff;
+  color: #000;
 }
 
 /* Responsive */
