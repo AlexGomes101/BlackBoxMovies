@@ -1484,8 +1484,12 @@ body {
 .creator-links {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.creator-links::-webkit-scrollbar { display: none; }
+
 .creator-link {
   display: inline-flex;
   align-items: center;
