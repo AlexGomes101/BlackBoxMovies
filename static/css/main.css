@@ -255,10 +255,6 @@ body {
   background: rgba(230,57,70,0.15); border-color: var(--red); color: var(--red);
 }
 
-/* ── MOVIE SECTIONS ────────────────────────
-.movie-section { padding: 2rem 0; }
-.container { max-width: 1400px; margin: 0 auto; padding: 0 3rem; } */
-
 /* ── MOVIE SECTIONS ──────────────────────── */
 .movie-section {
   padding: 2rem 0;
@@ -739,8 +735,6 @@ body {
 [data-theme="light"] .theme-toggle .icon-sun  { display: block; }
 [data-theme="light"] .theme-toggle            { color: #0d0d18; }
 
-
-
 /* ══════════════════════════════════════════════
    NAV GENRE SCROLL
 ══════════════════════════════════════════════ */
@@ -1058,9 +1052,6 @@ body {
 [data-theme="light"] ::-webkit-scrollbar-track { background: #f0ede8; }
 [data-theme="light"] ::-webkit-scrollbar-thumb { background: linear-gradient(var(--red), var(--orange)); border-radius: 3px; }
 
-
-
-
 /* ── CUSTOM VIDEO PLAYER ── */
 .player-outer {
   position: relative; width: 100%; background: #000;
@@ -1148,8 +1139,6 @@ body {
   #btnPip { display: none; }
 }
 
-
-
 /* ── LIGHT THEME ENHANCEMENT — Stronger Red + Cleaner White ── */
 
 /* Body gets a very subtle warm tint */
@@ -1192,7 +1181,6 @@ body {
 [data-theme="light"] .card-play {
   box-shadow: 0 6px 24px rgba(230,57,70,0.55);
 }
-
 
 /* Watch Now button — stronger red glow */
 [data-theme="light"] .btn-play {
@@ -1359,7 +1347,6 @@ body {
 .stat-num  { display: block; font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--red); line-height: 1; }
 .stat-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
 
-
 /* ── Footer Creator Card ── */
 .footer-links {
   display: flex;
@@ -1382,34 +1369,6 @@ body {
   color: var(--muted);
   margin-bottom: 16px;
 }
-
-/* .creator-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-  padding: 16px;
-  background: var(--glass);
-  border: 0.5px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  position: relative;
-  overflow: hidden;
-  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
-}
-
-.creator-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--red), var(--orange));
-}
-
-.creator-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--red);
-  box-shadow: 0 12px 32px rgba(230,57,70,0.25);
-} */
 
 .creator-card {
   display: flex;
@@ -1580,30 +1539,6 @@ body {
 }
 [data-theme="light"] .creator-name    { color: #111; }
 [data-theme="light"] .creator-tagline { color: #aaa; }
-
-/* [data-theme="light"] .creator-link {
-  background: #f5f5f5;
-  border-color: rgba(0,0,0,0.12);
-  color: #444;
-  font-weight: 500;
-}
-[data-theme="light"] .creator-link svg {
-  color: #444;
-}
-[data-theme="light"] .creator-link:hover {
-  background: var(--red);
-  border-color: var(--red);
-  color: #000;
-}
-[data-theme="light"] .creator-link:hover svg {
-  color: #000;
-}
-
-[data-theme="light"] .creator-link:hover {
-  background: var(--red);
-  border-color: var(--red);
-  color: #000;
-} */
 
 [data-theme="light"] .creator-link {
   background: #f5f5f5;
