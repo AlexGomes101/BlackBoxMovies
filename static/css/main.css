@@ -1394,19 +1394,6 @@ body {
   border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
-} */
-
-.creator-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-  padding: 16px;
-  background: var(--glass);
-  border: 0.5px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  position: relative;
-  overflow: hidden;
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
@@ -1422,6 +1409,79 @@ body {
   transform: translateY(-4px);
   border-color: var(--red);
   box-shadow: 0 12px 32px rgba(230,57,70,0.25);
+} */
+
+.creator-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 16px;
+  background: var(--glass);
+  border: 0.5px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.4s ease,
+    box-shadow 0.5s ease,
+    background 0.5s ease;
+}
+
+/* Top gradient bar */
+.creator-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--red), var(--orange), var(--purple));
+  transition: height 0.4s ease;
+}
+
+/* Light streak that sweeps across on hover */
+.creator-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 45%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.22), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.8s ease;
+  pointer-events: none;
+}
+
+.creator-card:hover {
+  transform: translateY(-10px) scale(1.06);
+  border-color: var(--red);
+  background: linear-gradient(135deg, rgba(230,57,70,0.12), rgba(244,99,30,0.06), rgba(123,47,255,0.10));
+  box-shadow:
+    0 28px 60px rgba(230,57,70,0.35),
+    0 0 0 1px rgba(230,57,70,0.45),
+    0 0 45px rgba(244,99,30,0.22);
+}
+.creator-card:hover::before { height: 4px; }
+.creator-card:hover::after  { left: 130%; }
+
+/* Photo pops and tilts */
+.creator-photo {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+.creator-card:hover .creator-photo {
+  transform: scale(1.15) rotate(-6deg);
+  box-shadow: 0 0 0 5px rgba(230,57,70,0.25), 0 10px 30px rgba(230,57,70,0.6);
+}
+
+/* Text shifts and the name gets a gradient */
+.creator-info { transition: transform 0.5s ease; }
+.creator-card:hover .creator-info { transform: translateX(6px); }
+
+.creator-card:hover .creator-name {
+  background: linear-gradient(90deg, var(--red), var(--orange));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .creator-photo-wrap {
@@ -1512,10 +1572,11 @@ body {
 }
 
 /* Light mode */
-[data-theme="light"] .creator-card {
+[data-theme="light"] .creator-card:hover {
   background: #fff;
-  border-color: rgba(0,0,0,0.08);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  box-shadow:
+    0 28px 60px rgba(230,57,70,0.28),
+    0 0 0 1px rgba(230,57,70,0.4);
 }
 [data-theme="light"] .creator-name    { color: #111; }
 [data-theme="light"] .creator-tagline { color: #aaa; }
