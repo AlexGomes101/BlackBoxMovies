@@ -150,3 +150,27 @@ if (navLinks && navScrollLeft && navScrollRight) {
   navLinks.addEventListener('scroll', updateNavArrows);
   updateNavArrows();
 }
+
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const mobileCloseBtn = document.getElementById('mobileCloseBtn');
+const mobilePanel = document.getElementById('mobilePanel');
+const mobileOverlay = document.getElementById('mobileOverlay');
+
+function openMobileMenu() {
+  mobilePanel.classList.add('open');
+  mobileOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeMobileMenu() {
+  mobilePanel.classList.remove('open');
+  mobileOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
+if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
+if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileMenu);
+
+document.querySelectorAll('.mobile-links a, .mobile-account a').forEach(link => {
+  link.addEventListener('click', closeMobileMenu);
+});
