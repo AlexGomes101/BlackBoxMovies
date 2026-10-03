@@ -29,10 +29,18 @@
       {% endif %}
 
       <!-- Bio edit -->
-      <form method="post" class="bio-form">
+      {% comment %} <form method="post" class="bio-form">
         {% csrf_token %}
         <textarea name="bio" placeholder="Write something about yourself…" rows="2">{{ profile.bio }}</textarea>
         <button type="submit" class="btn-submit" style="margin-top:8px;padding:7px 18px;font-size:0.8rem">Save Bio</button>
+      </form> {% endcomment %}
+
+      <form method="post" class="bio-form">
+        {% csrf_token %}
+        <textarea name="bio" placeholder="Write something about yourself…" rows="2">{{ profile.bio }}</textarea>
+        <div style="display:flex; justify-content:flex-end;">
+          <button type="submit" class="btn-submit" style="margin-top:8px;padding:5px 14px;font-size:0.72rem">Save Bio</button>
+        </div>
       </form>
     </div>
 
